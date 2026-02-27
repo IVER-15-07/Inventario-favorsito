@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Producto {
+  id          Int     @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  precio      Float
+  stock       Int
+  creadoen     DateTime @default(now())
+  actualizadoen DateTime @updatedAt
+
+  moviminetos MoviminetoInventario[]
+  historial    HistorialProductos[]
+  detalles     DetallePedido[]
+
+}
+
+model Pedido {
+  id          Int     @id @default(autoincrement())
+  nombreCliente String
+  direccion   String
+  estado      EstadoPedido
+  creadoen     DateTime @default(now())
+  actualizadoen DateTime @updatedAt
+
+
+  detalles     DetallePedido[]  
+  moviminetos MoviminetoInventario[]
+}
+
+
+model DetallePedido {
+  id          Int     @id @default(autoincrement())
+  cantidad     Int
+  precio       Float
+
+
+  productoId   Int
+  producto     Producto @relation(fields: [productoId], references: [id])
+
+  pedidoId     Int
+  pedido       Pedido   @relation(fields: [pedidoId], references: [id]) 
+
+}
+
+
+model MoviminetoInventario {
+  id          Int     @id @default(autoincrement())
+  cantidad     Int
+  fecha        DateTime @default(now())
+  motivo       String
+  tipo         TipoMovimiento
+
+  productoId   Int
+  producto     Producto @relation(fields: [productoId], references: [id])
+
+  pedido Pedido? @relation(fields: [pedidoId], references: [id])
+  pedidoId Int?
+}
+
+model HistorialProductos {
+  id          Int     @id @default(autoincrement())
+  cambio       String
+  valorAnterior   String?
+  valorNuevo      String?
+  fecha        DateTime @default(now())
+
+  historialProductoId   Int
+  producto     Producto @relation(fields: [historialProductoId], references: [id])
+}
+
+
+enum EstadoPedido {
+  PENDIENTE
+  PROCESANDO
+  ENVIADO
+  ENTREGADO
+  CANCELADO
+}
+
+enum TipoMovimiento {
+  ENTRADA
+  SALIDA
+}
+
