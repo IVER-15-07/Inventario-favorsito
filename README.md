@@ -62,6 +62,7 @@ Variables usadas por el backend:
 
 Ejemplo en `Backend/.env.example`.
 
+
 ---
 
 ## 3) Script para creación de base de datos
@@ -118,31 +119,3 @@ Razones del diseño:
 - **Middleware de API Key** (`x-api-key`) disponible para proteger endpoints sensibles.
 - **Uso de variables de entorno** para configuración sensible.
 
----
-
-## 7) Publicación en GitHub y entrega
-
-### Subir a repositorio público
-1. Crear un repositorio público en GitHub (por ejemplo `inventario-favorcito`).
-2. Desde la raíz del proyecto ejecutar:
-
-```bash
-git remote add origin https://github.com/<TU_USUARIO>/<TU_REPO>.git
-git branch -M main
-git push -u origin main
-```
-
-### Enviar enlace por correo
-Enviar a: `ivan@tufavorcito.com`
-
-Asunto sugerido:
-`Entrega proyecto Inventario Favorcito - 27/02/2026`
-
-Cuerpo sugerido:
-`Hola, comparto el repositorio público del proyecto: https://github.com/<TU_USUARIO>/<TU_REPO>`
-
----
-
-## 8) Fecha límite
-
-**Fecha límite de entrega: 27 de febrero de 2026 - 23:00**
